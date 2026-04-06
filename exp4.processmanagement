@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main() {
+    int pid;
+
+    pid = fork(); 
+
+    if (pid < 0) {
+        printf("Fork failed\n");
+    } 
+    else if (pid == 0) {
+       
+        printf("Child process executing...\n");
+
+       
+        execlp("ls", "ls", NULL);
+
+        
+        printf("Exec failed\n");
+    } 
+    else {
+       
+        printf("Parent waiting for child...\n");
+        wait(NULL);  
+        printf("Child completed\n");
+    }
+
+    return 0;
+}
